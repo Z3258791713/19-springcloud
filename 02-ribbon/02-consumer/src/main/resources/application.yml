@@ -1,0 +1,31 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true
+
+# 访问不同的服务 可以使用不同的算法规则
+#provider: # 服务提供者名称
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule   #几种算法的全限定类名
+
+ribbon:
+  eager-load:
+    enabled: false # ribbon需要去 eureka 中获取服务列表 ，默认 false：懒加载 ；true：启动就去拉取
+  eureka:
+    enabled: true
+  http: # 我们使用ribbon 用restTemplate（封装的模板） 发请求  （真正）java.net.HttpUrlConnection 发的请求  很方便 但是它不支持连接池
+    client: # 发请求的工具很多     httpClient  它支持连接池 效率更好
+      enabled: false # 若想改请求的工具，设置为true,并且需要加入 httpClient的依赖
+  okhttp: # 也是 一个请求工具   移动端用的比较多  轻量级的请求
+    enabled: false
+

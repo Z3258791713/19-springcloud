@@ -1,0 +1,54 @@
+# 单机
+server:
+  port: 8761  # eureka的默认端口
+spring:
+  application:
+    name: eureka-server # 应用名称 不要使用特殊字符
+eureka: # eureka 的配置共三类 server  client  实例（instance）
+  server:
+    eviction-interval-timer-in-ms: 10000  # 剔除时间 单位毫秒
+    renewal-percent-threshold: 0.85 # 续约阈值 超过85%的应用没有续约，则一个都不剔除。
+  instance: # 实例的配置
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}  # 主机名称 ： 应用名称 ：端口号
+    hostname: localhost # 主机名称 或 服务的ip
+    prefer-ip-address: true # 以ip的形式显示具体的服务信息
+    lease-renewal-interval-in-seconds: 5  # 服务实例的续约时间 单位秒
+  client:
+    register-with-eureka: ${REGISTER_WIHT_EUREKA:true} # 传参设置是否注册，默认设置为true,
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
+    fetch-registry: true
+
+
+# 集群
+#server:
+#  port: 8761  # eureka的默认端口
+#spring:
+#  application:
+#    name: eureka-server # 应用名称 不要使用特殊字符
+#eureka: # eureka 的配置共三类 server  client  实例（instance）
+#  client:
+#    service-url:  #不写默认向 8761注册
+#      defaultZone: http://peer2:8762/eureka,http://peer3:8763/eureka
+#  instance: # 实例的配置
+#    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}  # 主机名称 ： 应用名称 ：端口号
+#    hostname: peer1 # 主机名称 或 服务的ip
+#    prefer-ip-address: true # 以ip的形式显示具体的服务信息
+#    lease-renewal-interval-in-seconds: 5  # 服务实例的续约时间 单位秒
+
+
+# 终极形式
+#server:
+#  port: 8761  # eureka的默认端口
+#spring:
+#  application:
+#    name: eureka-server # 应用名称 不要使用特殊字符
+#eureka: # eureka 的配置共三类 server  client  实例（instance）
+#  client:
+#    service-url:  #不写默认向 8761注册
+#      defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka,http://peer3:8763/eureka
+#  instance: # 实例的配置
+#    instance-id: ${spring.application.name}:${server.port}  # 主机名称 ： 应用名称 ：端口号
+##    hostname: peer1 # 主机名称 或 服务的ip
+#    prefer-ip-address: true # 以ip的形式显示具体的服务信息
+#    lease-renewal-interval-in-seconds: 5  # 服务实例的续约时间 单位秒

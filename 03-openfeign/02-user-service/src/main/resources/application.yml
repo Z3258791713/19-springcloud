@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: user-service
+# feign 只是 封装了远程调用的功能   底层 还是 ribbon  所以需要修改ribbon的超时时间
+ribbon: #  查看配置类  DefaultClientConfigImpl 中包含
+  ReadTimeout: 3000 # 3s超时时间
+  ConnectTimeout: 3000 # 连接服务的超时时间

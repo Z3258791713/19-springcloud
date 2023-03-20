@@ -1,0 +1,43 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: eureka-client-a
+# 注册的含义？ 就是将自己的信息（IP 、port ...）  发送过去（到哪去）
+eureka:
+  client: # 客户端配置信息
+    service-url:  #指定注册的地址
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true # 缓存 注册的服务列表 到本地
+    register-with-eureka: true # 是否向 eureka-server中注册
+    registry-fetch-interval-seconds: 10 # 缓解 服务列表 脏读问题，时间越短，脏读越少，性能效果越大
+  instance:
+    hostname: localhost # 应用的主机名称 最好写 ip
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true # 显示ip 默认为 false
+
+
+
+
+
+#server:
+#  port: 8080
+#spring:
+#  application:
+#    name: eureka-client-a
+## 注册的含义？ 就是将自己的信息（IP 、port ...）  发送过去（到哪去）
+#eureka:
+#  client: # 客户端配置信息
+#    service-url:  #指定注册的地址
+#      defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka,http://peer3:8763/eureka
+#    fetch-registry: true # 缓存 注册的服务列表 到本地
+#    register-with-eureka: true # 是否向 eureka-server中注册
+#    registry-fetch-interval-seconds: 10 # 缓解 服务列表 脏读问题，时间越短，脏读越少，性能效果越大
+#  instance:
+#    hostname: localhost # 应用的主机名称 最好写 ip
+#    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+#    lease-renewal-interval-in-seconds: 10
+#    prefer-ip-address: true # 显示ip 默认为 false
+
+
