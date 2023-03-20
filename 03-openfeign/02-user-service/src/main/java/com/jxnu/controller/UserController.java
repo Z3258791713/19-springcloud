@@ -24,7 +24,7 @@ public class UserController {
      */
     @GetMapping("userDoOrder")
     public String userDoOrder(){
-        System.out.println("有用户进来了");
+        System.out.println("有用户进来了！！！");
         String res = iUserOrderFeign.doOrder();
         return res;
     }
