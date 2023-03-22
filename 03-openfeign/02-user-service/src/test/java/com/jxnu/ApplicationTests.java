@@ -28,16 +28,17 @@ class ApplicationTests {
             @Override
             public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
                 //手写feign
-                String name = method.getName();
-                GetMapping annotation = method.getAnnotation(GetMapping.class);
-                String[] paths = annotation.value();
-                String path = paths[0];
+                String name = method.getName();//方法的名称
+                GetMapping annotation = method.getAnnotation(GetMapping.class);//获得GetMapping注解
+                String[] paths = annotation.value();//返回GetMapping注解的api
+                String path = paths[0];// doOrder
                 Class<?> aClass = method.getDeclaringClass();
                 String name1 = aClass.getName();
-                FeignClient annotation1 = aClass.getAnnotation(FeignClient.class);
-                String applicationName = annotation1.value();
+                FeignClient annotation1 = aClass.getAnnotation(FeignClient.class);//IUserOrderFeign的FeignClient注解
+                String applicationName = annotation1.value();// 服务提供者名称
+
                 String url = "http://"+ applicationName + "/" +path;
-                String forObject = restTemplate.getForObject(url, String.class);
+                String forObject = restTemplate.getForObject(url, String.class);//ribbon 来发送请求，返回结果
                 return forObject;
             }
         });
