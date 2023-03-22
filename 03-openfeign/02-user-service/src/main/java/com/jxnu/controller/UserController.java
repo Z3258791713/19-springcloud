@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @RestController
@@ -60,8 +60,26 @@ public class UserController {
         return "ok";
     }
 
+    /**
+     * Wed Mar 22 22:04:03 CST 2023    +- 14个小时
+     * Thu Mar 23 12:04:03 CST 2023
+     * 1、不建议单独传递时间参数
+     * 2、转成字符串    因为字符串不会改变。
+     * 3、jdk    LocalDate  年月日          LocalDateTime   年月日 时分秒(有问题，会丢失 秒)
+     * 4、改feign的源码
+     * @return
+     */
+    @GetMapping("time")
+    public String time(){
+        Date date = new Date();
 
-    public static void main(String[] args) {
+//        System.out.println(date);
+//        String time = iUserOrderFeign.testTime(date);
 
+        LocalDate now = LocalDate.now();//年月日
+        LocalDateTime now1 = LocalDateTime.now();//年月日 时分秒
+        String time = iUserOrderFeign.testTime(now);
+
+        return time;
     }
 }

@@ -4,6 +4,9 @@ import com.jxnu.domain.Order;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 /**
  * @FeignClient(value = "order-service")
  *    value 是 服务提供者的名称
@@ -32,4 +35,7 @@ public interface IUserOrderFeign {
 
     @PostMapping("oneObjOneParam")
     String oneObjOneParam(@RequestBody Order order,@RequestParam String name);
+
+    @GetMapping("testTime")
+    String testTime(@RequestParam LocalDate date);
 }

@@ -3,6 +3,10 @@ package com.jxnu.controller;
 import com.jxnu.domain.Order;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
+import java.time.LocalDate;
+import java.util.Date;
+
 
 @RestController
 public class ParamController {
@@ -46,4 +50,11 @@ public class ParamController {
         return "ok";
     }
 
+
+    //单独传递时间对象
+    @GetMapping("testTime")
+    public String testTime(@RequestParam LocalDate date){
+        System.out.println(date);
+        return "ok";
+    }
 }
