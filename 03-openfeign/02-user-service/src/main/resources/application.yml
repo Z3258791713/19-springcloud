@@ -7,3 +7,6 @@ spring:
 ribbon: #  查看配置类  DefaultClientConfigImpl 中包含 ReadTimeout
   ReadTimeout: 3000 # 3s超时时间
   ConnectTimeout: 3000 # 连接服务的超时时间
+logging:
+  level:
+    com.jxnu.feign.IUserOrderFeign: debug

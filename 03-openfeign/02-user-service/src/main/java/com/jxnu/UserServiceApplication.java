@@ -1,5 +1,6 @@
 package com.jxnu;
 
+import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -23,4 +24,12 @@ public class UserServiceApplication {
         return new RestTemplate();
     }
 
+    /**
+     * 打印日志信息
+     * @return
+     */
+    @Bean
+    public Logger.Level level(){
+        return Logger.Level.FULL;
+    }
 }

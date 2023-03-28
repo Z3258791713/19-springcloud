@@ -14,7 +14,9 @@ import java.util.Date;
 @RestController
 public class UserController {
     /**
-     * 动态代理（jdk） IUserOrderFeign 接口被创建出代理对象
+     * 动态代理（jdk）invoke方法 IUserOrderFeign 接口被创建出代理对象
+     * feign调试 给 Client下的108行断点调试
+     * HttpStatus下可以看状态码
      */
     @Autowired
     private IUserOrderFeign iUserOrderFeign;
