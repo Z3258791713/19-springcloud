@@ -13,15 +13,20 @@ eureka:
     lease-renewal-interval-in-seconds: 10
     prefer-ip-address: true
 
-# 访问不同的服务 可以使用不同的算法规则
+# 访问不同的服务 可以使用不同的算法规则 --> 在IRule接口中找
 #provider: # 服务提供者名称
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule   #几种算法的全限定类名
 
+# ribbon 是 客户端实现负载均衡的远程调调用组件，
+# 源码核心： ILoadBalancer接口：起到 <<承上启下>> 的作用
+# 1.承上： 从eureka中拉取服务列表
+# 2.启下： 使用IRule算法实现客户端调用的负载均衡
+  
 ribbon:
   eager-load:
     enabled: false # ribbon需要去 eureka 中获取服务列表 ，默认 false：懒加载 ；true：启动就去拉取
-  eureka:
+  eureka: # 开启eureka支持
     enabled: true
   http: # 我们使用ribbon 用restTemplate（封装的模板） 发请求  （真正）java.net.HttpUrlConnection 发的请求  很方便 但是它不支持连接池
     client: # 发请求的工具很多     httpClient  它支持连接池 效率更好

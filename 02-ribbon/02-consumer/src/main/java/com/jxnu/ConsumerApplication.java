@@ -29,7 +29,7 @@ public class ConsumerApplication {
     }
 
     @Bean
-    public IRule myRule(){
+    public IRule myRule(){  //指定调用所有服务都调用此方法
 //        return new MyRule();
         return new RandomRule();
     }

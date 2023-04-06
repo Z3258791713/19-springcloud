@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -38,4 +39,7 @@ public interface IUserOrderFeign {
 
     @GetMapping("testTime")
     String testTime(@RequestParam LocalDate date);
+
+    @GetMapping("testLocalDateTime")
+    String testTime(@RequestParam LocalDateTime date);
 }

@@ -25,7 +25,7 @@ public class UserServiceApplication {
     }
 
     /**
-     * 打印日志信息
+     * 打印日志信息级别
      * @return
      */
     @Bean

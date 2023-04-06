@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import javax.servlet.ServletOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -80,6 +81,8 @@ public class UserController {
 
         LocalDate now = LocalDate.now();//年月日
         LocalDateTime now1 = LocalDateTime.now();//年月日 时分秒
+        String time1 = iUserOrderFeign.testTime(now1);
+        System.out.println(time1 + " ***");
         String time = iUserOrderFeign.testTime(now);
 
         return time;

@@ -12,8 +12,9 @@ public class ConsumerController {
 
     @Autowired
     private RestTemplate restTemplate;
+
     @Autowired
-    private LoadBalancerClient loadBalancerClient;
+    private LoadBalancerClient loadBalancerClient; //负载均衡客户端
 
     /**
      * ribbon  使 http://provider/hello 请求成功
@@ -38,7 +39,7 @@ public class ConsumerController {
 
     @GetMapping("testRibbonRule")
     public String testRibbonRule(String serviceName){
-        ServiceInstance instance = loadBalancerClient.choose(serviceName);
+        ServiceInstance instance = loadBalancerClient.choose(serviceName); //通过服务名称选择
         return instance.toString();
     }
 }

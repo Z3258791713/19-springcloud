@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -54,6 +55,12 @@ public class ParamController {
     //单独传递时间对象
     @GetMapping("testTime")
     public String testTime(@RequestParam LocalDate date){
+        System.out.println(date);
+        return "ok";
+    }
+
+    @GetMapping("testLocalDateTime")
+    public String testTime(@RequestParam LocalDateTime date){
         System.out.println(date);
         return "ok";
     }
