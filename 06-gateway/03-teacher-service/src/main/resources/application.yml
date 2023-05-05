@@ -1,0 +1,17 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: teacher-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 暴露所有监控端点

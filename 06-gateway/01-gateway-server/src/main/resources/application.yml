@@ -1,0 +1,50 @@
+server:
+  port: 80
+spring:
+  application:
+    name: gateway-server
+  cloud:  # 文件配置方式
+    gateway: # 动态路由需要结合 eureka
+      # gateway的全局跨域请求配置
+      globalcors:
+        corsConfigurations:
+          '[/**]':  # 针对所有路径
+            allowedHeaders: "*"
+            allowedOrigins: "*"
+            allowCredentials: true # 可以携带cookie
+            allowedMethods: "*"
+      enabled: true #只要加了依赖，默认开启
+      routes:
+        - id: login-service-route # 路由的id ， 唯一即可
+#          uri: http://localhost:8081  # url统一资源定位符  uri 统一资源标识符
+          uri: lb://login-service # lb协议实现负载均衡
+          predicates: # 给某个路由设置匹配规则,默认不能作用在动态路由上
+            - Path=/doLogin # 匹配规则
+            - After=2023-04-07T23:19:28.469193600+08:00[Asia/Shanghai]
+            - Method=GET
+#            - Query=name,admin.
+          filters:
+            - name: RequestRateLimiter # 过滤器名称
+              args: # 过滤器的参数
+                key-resolver: '#{@apiKeyResolver}' # 通过spel 表达式取ioc容器中bean的值
+                redis-rate-limiter.replenishRate: 1 # 生成令牌速度
+                redis-rate-limiter.burstCapacity: 3 # 令牌桶容量
+
+
+      discovery: # 动态路由配置
+        locator:
+          enabled: true # 开启通过应用名称找到服务的功能
+          lower-case-service-id: true # 开启服务名称小写
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    registry-fetch-interval-seconds: 3 # 网关拉取服务的时间缩短
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 暴露所有监控端点
