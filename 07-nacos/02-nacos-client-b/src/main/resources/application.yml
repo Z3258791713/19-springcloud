@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: nacos-client-b
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      username: nacos
+      password: nacos
+      discovery: # 注册相关配置
+        namespace: 41615fb7-5950-498e-b786-1f92318d26c0
+        group: A_GROUP #注册到哪个组
+        service: user-service # 注册列表的key 默认为 spring应用名称

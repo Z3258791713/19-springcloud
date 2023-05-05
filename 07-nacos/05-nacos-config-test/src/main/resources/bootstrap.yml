@@ -1,0 +1,50 @@
+#server:
+#  port: 8083
+#spring:
+#  application:
+#    name: nacos-config-test
+#  cloud:
+#    nacos:
+#      config:
+#        username: nacos
+#        password: nacos
+#        file-extension: yml # 文件类型
+#        server-addr: localhost:8848
+#        namespace: 14af6434-e99e-4dc8-8843-e2d995b29870 # 目前只支持在同一命名空间下读取多配置文件
+#        extension-configs: # 可以读取同一命名空间不同组的配置文件
+#          - dataId: user-centet-dev.yml
+#            group: A_GROUP
+#            refresh: true # 配置文件动态刷新
+#          - dataId: member-center-dev.yml
+#            group: B_GROUP
+#            refresh: true
+#  profiles:
+#    active: dev
+
+server:
+  port: 8083
+spring:
+  application:
+    name: nacos-config-test
+  cloud:
+    nacos:
+      config:
+        username: nacos
+        password: nacos
+        prefix: user-centet # 读哪个配置文件（dataId）
+        file-extension: yml # 文件类型
+        server-addr: localhost:8848
+        group: A_GROUP
+        namespace: 14af6434-e99e-4dc8-8843-e2d995b29870 # 目前只支持在同一命名空间下读取多配置文件
+        shared-configs: # 共享配置文件
+#          - application-dev.yml # 共享文件名称 只能在 DEFAULT_GROUP
+          - dataId: application-dev.yml   # 两种方法都行
+            group: C_GROUP
+            refresh: true
+  profiles:
+    active: dev
+# bootstrap.yml 写的内容？
+# 1、应用名称
+# 2、nacos的注册与拉取 配置文件
+
+# 远端放 端口 、 数据源 、 redis  、 mq 等等 因为方便管理和修改

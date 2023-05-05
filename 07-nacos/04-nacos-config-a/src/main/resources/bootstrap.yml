@@ -1,0 +1,17 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: nacos-config-a
+  cloud:
+    nacos:
+      config:
+        username: nacos
+        password: nacos
+        prefix: nacos-config # 读哪个配置文件（dataId）
+        file-extension: yml # 文件类型
+        server-addr: localhost:8848
+#        namespace: 默认 public
+#        group: 默认 DEFAULT_GROUP
+  profiles:
+    active: dev
